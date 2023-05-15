@@ -28,8 +28,8 @@ sum([H|T], S) :- sum(T, R), S is R + H.
 % Suppose the list has at least one element
 max([H], H, H).
 max([H|T], Max, Min) :- max(T, TMax, TMin), 
-	(H > TMax -> Max = H ; Max = TMax),
-	(H < TMin -> Min = H ; Min = TMin).
+	(H > TMax -> Max is H ; Max is TMax),
+	(H < TMin -> Min is H ; Min is TMin).
 
 % ES 1.6
 % sublist (List1 , List2 )
@@ -37,6 +37,40 @@ max([H|T], Max, Min) :- max(T, TMax, TMin),
 % example : sublist ([1 ,2] ,[5 ,3 ,2 ,1]).
 sublist([], _).
 sublist([H|T], L) :- member(H, L), sublist(T, L).
+
+% ES 2.1
+% dropAny(? Elem, ? List, ? OutList)
+dropAny(X, [X|T], T).
+dropAny(X, [H|Xs], [H|L]) :- dropAny(X, Xs, L).
+
+% ES 2.2
+% dropFirst(? Elem, ? List, ? OutList)
+% drops only the first occurrence (showing no alternative results)
+dropFirst(X, [X|T], T) :- !.
+dropFirst(X, [H|Xs], [H|L]) :- dropFirst(X, Xs, L).
+% dropLast(? Elem, ? List, ? OutList)
+% drops only the last occurrence (showing no alternative results)
+dropLast(X, [H|Xs], [H|L]) :- dropLast(X, Xs, L), !.
+dropLast(X, [X|T], T).
+% dropAll(? Elem, ? List, ? OutList)
+% drop all occurrences, returning a single list as a result
+dropAll(_, [], []) :- !.
+dropAll(X, [X|T], OutList) :- dropAll(X, T, OutList), !.
+dropAll(X, [H|Xs], [H|L]) :- X \= H, dropAll(X, Xs, L).
+
+% ES 3.1
+% fromList (+ List, - Graph)
+fromList([_], []).
+fromList([H1, H2|T], [e(H1, H2)|L]) :- fromList([H2|T], L).
+
+% ES 3.2
+% fromCircList(+ List, - Graph)
+fromCircList([H], [e(H, H)]).
+%fromCircList([H1, H2|T], [e(H1, H2)|L]) :- fromCircList([H2|T], L).
+
+
+
+
 
 
 
