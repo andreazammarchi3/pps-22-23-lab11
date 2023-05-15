@@ -15,4 +15,9 @@ search_two(E, [_|T]) :- search_two(E, T).
 % size (List , Size )
 % Size will contain the number of elements in List
 size([], 0).
-size([_, T], S) :- size(T, R), S is R + 1.
+size([_|T], S) :- size(T, R), S is R + 1.
+
+% ES 1.4
+% sum(List , Sum )
+sum([], 0).
+sum([H|T], S) :- sum(T, R), S is R + H.
