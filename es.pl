@@ -27,8 +27,8 @@ sum([H|T], S) :- sum(T, R), S is R + H.
 % Min is the smallest element in List
 % Suppose the list has at least one element
 max([H], H, H).
-max([H|T], Max, Min) :- H > Max, max(T, H, Min).
-max([H|T], Max, Min) :- H < Min, max(T, Max, H).
-max([_|T], Max, Min) :- max(T, Max, Min).
+max([H|T], Max, Min) :- max(T, TMax, TMin), 
+	(H > TMax -> Max = H ; Max = TMax),
+	(H < TMin -> Min = H ; Min = TMin).
 
 
