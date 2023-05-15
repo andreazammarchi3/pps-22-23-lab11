@@ -10,7 +10,6 @@ search2(E, [_|T]) :- search2(E, T).
 search_two(E, [E, X, E|T]).
 search_two(E, [_|T]) :- search_two(E, T).
 
-
 % ES 1.3
 % size (List , Size )
 % Size will contain the number of elements in List
@@ -21,3 +20,15 @@ size([_|T], S) :- size(T, R), S is R + 1.
 % sum(List , Sum )
 sum([], 0).
 sum([H|T], S) :- sum(T, R), S is R + H.
+
+% ES 1.5
+% max(List ,Max , Min )
+% Max is the biggest element in List
+% Min is the smallest element in List
+% Suppose the list has at least one element
+max([H], H, H).
+max([H|T], Max, Min) :- H > Max, max(T, H, Min).
+max([H|T], Max, Min) :- H < Min, max(T, Max, H).
+max([_|T], Max, Min) :- max(T, Max, Min).
+
+
