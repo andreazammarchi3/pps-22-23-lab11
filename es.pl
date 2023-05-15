@@ -31,4 +31,13 @@ max([H|T], Max, Min) :- max(T, TMax, TMin),
 	(H > TMax -> Max = H ; Max = TMax),
 	(H < TMin -> Min = H ; Min = TMin).
 
+% ES 1.6
+% sublist (List1 , List2 )
+% List1 should contain elements all also in List2
+% example : sublist ([1 ,2] ,[5 ,3 ,2 ,1]).
+sublist([], _).
+sublist([H|T], L) :- member(H, L), sublist(T, L).
+
+
+
 
