@@ -65,8 +65,16 @@ fromList([H1, H2|T], [e(H1, H2)|L]) :- fromList([H2|T], L).
 
 % ES 3.2
 % fromCircList(+ List, - Graph)
-fromCircList([H], [e(H, H)]).
-%fromCircList([H1, H2|T], [e(H1, H2)|L]) :- fromCircList([H2|T], L).
+
+% ES 3.3
+% outDegree (+ Graph , + Node , - Deg )
+% Deg is the number of edges leading into Node
+outDegree([], N, 0).
+outDegree([e(H1, H2)|L], N, D) :- H1 \= N, outDegree(L, N, D).
+outDegree([e(N, H2)|L], N, D) :- outDegree(L, N, D1), D is D1 + 1.
+
+
+
 
 
 
