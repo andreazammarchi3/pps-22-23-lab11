@@ -73,6 +73,12 @@ outDegree([], N, 0).
 outDegree([e(H1, H2)|L], N, D) :- H1 \= N, outDegree(L, N, D).
 outDegree([e(N, H2)|L], N, D) :- outDegree(L, N, D1), D is D1 + 1.
 
+% ES 3.4
+% dropNode (+ Graph , + Node , - OutGraph )
+% drop all edges starting and leaving from a Node
+% use dropAll defined in 1.1??
+dropNode(G, N, OG) :- dropAll(e(N, _), G, G2), dropAll(e(_, N), G2, OG).
+
 
 
 
